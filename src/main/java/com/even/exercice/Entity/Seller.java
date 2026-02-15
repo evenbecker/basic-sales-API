@@ -1,0 +1,48 @@
+package com.even.exercice.Entity;
+
+import org.springframework.stereotype.Component;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+
+@Component
+@Entity
+@Table(name = "seller")
+public class Seller {
+
+    @Id
+    @NotNull
+    private int sellerId;
+
+    @NotNull
+    private String sellerName;
+
+    public Seller() {}
+
+    public Seller(int id) {
+        setSellerId(id);
+    }
+
+    public Seller(int id, String name){
+        setSellerId(id);
+        setSellerName(name);
+    }
+
+    public String getSellerName() {
+        return sellerName;
+    }
+
+    public void setSellerName(String sellerName) {
+        this.sellerName = sellerName;
+    }
+
+    public int getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(int sellerId) {
+        this.sellerId = sellerId;
+    }
+}
