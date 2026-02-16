@@ -8,6 +8,7 @@
   <li>Spring Boot</li>
    <li>HyperSQL</li>
    <li>Spring Data JPA</li>
+   <li>JUnit to test</li>
 </ul>
 
 
