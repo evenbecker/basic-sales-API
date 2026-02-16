@@ -1,31 +1,29 @@
 package com.even.exercice.Controller;
 
-import com.google.gson.Gson;
+import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.Collections;
+import java.util.List;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+
 import com.even.exercice.Dto.CreateSaleDto;
 import com.even.exercice.Entity.Sale;
 import com.even.exercice.Entity.Seller;
 import com.even.exercice.Service.SaleService;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.mockito.BDDMockito.given;
-
-import java.util.Collections;
-import java.util.List;
+import com.google.gson.Gson;
 
 
 @RunWith(SpringRunner.class)
@@ -35,7 +33,7 @@ public class SaleControllerUnitTest {
     @Autowired
     private MockMvc mvc;
 
-    @MockBean
+    @MockitoBean
     private SaleService saleService;
 
     @Test
@@ -63,7 +61,7 @@ public class SaleControllerUnitTest {
 
         given(saleService.createSale(sale.getValue(), sale.getSeller().getSellerId())).willReturn(sale);
         mvc.perform(post("/sales")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(new Gson().toJson(dto)))
                 .andExpect(status().isCreated())
                 .andExpect(content().json("{'id':153468,'value':50.5,'seller':{'sellerId':123456,'sellerName':'Teste'},'dateLong':1553228667949,'date':'2019-03-22'}"));
@@ -74,7 +72,7 @@ public class SaleControllerUnitTest {
     public void createSaleMismatch() throws Exception {
 
         mvc.perform(post("/sales")
-                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content("{'value':'50.5','sellerId':'123456'}"))
                 .andExpect(status().isBadRequest());
     }

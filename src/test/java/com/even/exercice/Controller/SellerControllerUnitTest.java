@@ -11,9 +11,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -30,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(SellerController.class)
 public class SellerControllerUnitTest {
 
-    @MockBean
+    @MockitoBean
     private SellerService sellerService;
 
     @Autowired
@@ -44,7 +46,7 @@ public class SellerControllerUnitTest {
         given(sellerService.createSeller("Teste")).willReturn(seller);
 
         mvc.perform(post("/sellers")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(new Gson().toJson(dto)))
                 .andDo(print())
                 .andExpect(status().isCreated())

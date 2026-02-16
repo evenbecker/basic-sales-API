@@ -5,7 +5,7 @@
 #### Tech stack
 <ul>
   <li>Maven</li>
-  <li>Spring Boot</li>
+  <li>Spring Boot 4</li>
    <li>HyperSQL</li>
    <li>Spring Data JPA</li>
    <li>JUnit to test</li>
