@@ -1,8 +1,6 @@
 # Basic sales API
 
-## Installation
-
-#### Tech stack
+### Tech stack
 <ul>
   <li>Maven</li>
   <li>Spring Boot 4</li>
@@ -11,9 +9,7 @@
    <li>JUnit to test</li>
 </ul>
 
-
-
-#### Endpoints
+### Endpoints
 Requests and responses will all be in JSON. The application will run at ``http://localhost:8080`` which the endpoints are:
 <table>
   <tr>
